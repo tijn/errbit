@@ -99,6 +99,7 @@ group :development do
   # Use puma for development
   gem 'puma', :require => false
 
+  gem 'rubocop', require: false
 end
 
 group :test do
