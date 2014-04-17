@@ -13,6 +13,7 @@ class WatchersController < ApplicationController
 
   def assign
     watcher.assign!
+    flash[:success] = "#{watcher.label} is now assigned as responsible person."
     redirect_to app
   end
 
