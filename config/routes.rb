@@ -44,6 +44,7 @@ Errbit::Application.routes.draw do
     end
     resources :deploys, :only => [:index]
     resources :watchers, :only => [:destroy]
+    put 'watchers/:id/assign', to: 'watchers#assign', as: 'watcher_assign'
     member do
       post :regenerate_api_key
     end
