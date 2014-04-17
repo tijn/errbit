@@ -42,7 +42,9 @@
           %tr
             %td= watcher.label
             %td= watcher.responsible? ? 'Y' : 'N'
-            %td= link_to 'Assign', '#', class: 'button' unless watcher.responsible?
+            %td
+              - unless watcher.responsible?
+                = button_to 'Assign', app_watcher_assign_path(app, watcher), method: :put, class: 'button'
         - if app.watchers.none?
           %tr
             %td
