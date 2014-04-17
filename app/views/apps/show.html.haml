@@ -36,11 +36,13 @@
         %tr
           %th.main=t('.user_or_email')
           %th=t('.responsible')
+          %th
       %tbody
         - app.watchers.each do |watcher|
           %tr
             %td= watcher.label
             %td= watcher.responsible? ? 'Y' : 'N'
+            %td= link_to 'Assign', '#', class: 'button' unless watcher.responsible?
         - if app.watchers.none?
           %tr
             %td
