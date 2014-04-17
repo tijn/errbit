@@ -34,11 +34,13 @@
     %table.watchers
       %thead
         %tr
-          %th=t('.user_or_email')
+          %th.main=t('.user_or_email')
+          %th=t('.responsible')
       %tbody
         - app.watchers.each do |watcher|
           %tr
             %td= watcher.label
+            %td= watcher.responsible? ? 'Y' : 'N'
         - if app.watchers.none?
           %tr
             %td
