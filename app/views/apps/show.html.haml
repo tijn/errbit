@@ -44,7 +44,7 @@
             %td= watcher.responsible? ? 'Y' : 'N'
             %td
               - unless watcher.responsible?
-                = button_to 'Assign', app_watcher_assign_path(app, watcher), method: :put, class: 'button'
+                = button_to 'Assign', app_watcher_assign_path(app.id, watcher.user_id), method: :put, class: 'button'
         - if app.watchers.none?
           %tr
             %td
