@@ -13,6 +13,7 @@
                 environment.
                 %br
                 This err has occurred #{pluralize @notice.problem.notices_count, 'time'}.
+              %p= "This is the responsibility of #{@assignee.label}." if @assignee
               %p
                 = link_to("Click here to view the error on Errbit", app_problem_url(@app, @notice.problem), :class => "bold") << "."
 %tr

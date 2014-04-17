@@ -11,6 +11,7 @@ class Mailer < ActionMailer::Base
   def err_notification(notice)
     @notice   = notice
     @app      = notice.app
+    @assignee = @app.watchers.where(responsible: true).first
 
     count = @notice.similar_count
     count = count > 1 ? "(#{count}) " : ""
