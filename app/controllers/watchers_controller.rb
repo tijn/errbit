@@ -12,6 +12,7 @@ class WatchersController < ApplicationController
   before_filter :require_watcher_edit_priviledges, :only => [:destroy]
 
   def assign
+    watcher = app.watchers.find(params[:id])
     watcher.assign!
     flash[:success] = "#{watcher.label} is now assigned as responsible person."
     redirect_to app
