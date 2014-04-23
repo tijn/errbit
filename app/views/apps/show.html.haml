@@ -47,7 +47,7 @@
                 = button_to 'Assign', app_watcher_assign_path(app, watcher), method: :put, class: 'button'
         - if app.watchers.none?
           %tr
-            %td
+            %td{colspan: 3}
               %em= t('.no_watcher')
 
 - if app.github_repo?
