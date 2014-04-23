@@ -22,6 +22,13 @@ td.header {
       text-shadow: 0 1px 0 #EEEEFF;
     }
 
+td.responsibility {
+  background-color: #fcf8e3;
+  border: 2px solid #faebcc;
+  color: #8a6d3b;
+  padding: 10px 10px 10px 20px;
+}
+
 td.section, td.content, td.footer {
   font-family: Helvetica,Arial,sans-serif;
   font-size: 14px;
