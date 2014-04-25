@@ -3,8 +3,9 @@ class Watcher
   include Mongoid::Timestamps
 
   field :email
+  field :responsible, default: false
 
-  embedded_in :app, :inverse_of => :watchers
+  embedded_in :app, inverse_of: :watchers
   belongs_to :user
 
   validate :ensure_user_or_email
@@ -25,20 +26,24 @@ class Watcher
     user.try(:email) || email
   end
 
+  def assign!
+    app.watchers.update_all(responsible: false)
+    self.responsible = true
+    self.save!
+  end
+
   protected
 
-    def ensure_user_or_email
-      errors.add(:base, "You must specify either a user or an email address") unless user.present? || email.present?
-    end
+  def ensure_user_or_email
+    errors.add(:base, 'You must specify either a user or an email address') unless user.present? || email.present?
+  end
 
-    def clear_unused_watcher_type
-      case watcher_type
-      when 'user'
-        self.email = nil
-      when 'email'
-        self.user = self.user_id = nil
-      end
+  def clear_unused_watcher_type
+    case watcher_type
+    when 'user'
+      self.email = nil
+    when 'email'
+      self.user = self.user_id = nil
     end
-
+  end
 end
-

@@ -20,6 +20,39 @@ describe Watcher do
     end
   end
 
+  context 'responsibility' do
+    let(:watcher) { Fabricate(:watcher, email: 'watcher@has.no.mail') }
+    let(:watcher2) { Fabricate(:watcher, email: 'watcher2@has.no.mail') }
+    let(:app) { Fabricate(:app) }
+
+    before do
+      app.watchers << watcher
+      app.watchers << watcher2
+    end
+
+    it 'is set to false by default' do
+      expect(watcher.responsible?).to eq false
+    end
+
+    it 'allows only one to be responsible' do
+      watcher.assign!
+      expect(watcher.responsible?).to eq true
+      expect(watcher2.responsible?).to eq false
+      watcher2.assign!
+      expect(watcher.responsible?).to eq false
+      expect(watcher2.responsible?).to eq true
+    end
+
+    it 'switches automatically between responsible person' do
+      watcher2.assign!
+      expect(watcher.responsible?).to eq false
+      expect(watcher2.responsible?).to eq true
+      watcher.assign!
+      expect(watcher.responsible?).to eq true
+      expect(watcher2.responsible?).to eq false
+    end
+  end
+
   context 'address' do
     it "returns the user's email address if there is a user" do
       user = Fabricate(:user, :email => 'foo@bar.com')

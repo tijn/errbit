@@ -34,14 +34,20 @@
     %table.watchers
       %thead
         %tr
-          %th=t('.user_or_email')
+          %th.main=t('.user_or_email')
+          %th=t('.responsible')
+          %th
       %tbody
         - app.watchers.each do |watcher|
           %tr
             %td= watcher.label
+            %td= watcher.responsible? ? 'Y' : 'N'
+            %td
+              - unless watcher.responsible?
+                = button_to 'Assign', app_watcher_assign_path(app, watcher), method: :put, class: 'button'
         - if app.watchers.none?
           %tr
-            %td
+            %td{colspan: 3}
               %em= t('.no_watcher')
 
 - if app.github_repo?
