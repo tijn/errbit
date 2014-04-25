@@ -20,7 +20,7 @@ describe WatchersController do
         let(:watcher2) { app.watchers.last }
         before { watcher2.assign! }
         before(:each) do
-          put :assign, app_id: app.id, id: watcher.user.id
+          put :assign, app_id: app.id, id: watcher.id
           watcher.reload
         end
 
