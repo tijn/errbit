@@ -18,7 +18,7 @@ describe ExceptionFiltersController do
   describe 'GET #show' do
     before { get :show, :id => filter.id }
 
-    it 'assigns the requested fiter to @filter' do
+    it 'assigns the requested filter to @exception_filter' do
       expect(controller.exception_filter).to eq filter
     end
 
