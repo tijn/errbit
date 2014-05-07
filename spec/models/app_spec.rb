@@ -222,7 +222,7 @@ describe App do
 
   context '#keep_notice?' do
     let(:app) { Fabricate(:app) }
-    let(:application_filter) { Fabricate(:empty_filter, :app => app) }
+    let(:application_filter) { Fabricate(:empty_filter, app: app) }
     let(:global_filter) { Fabricate(:empty_filter) }
 
     it 'returns true if notice passes all filters' do
