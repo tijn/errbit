@@ -17,9 +17,12 @@ class Filter
   validates :description, presence: true
   validate :at_least_one_criteria_present
 
+  def matches(notice)
+    FIELDS.map { |sym| match?(sym, notice) if self[sym].present? }
+  end
+
   def pass?(notice)
-    matches = FIELDS.map { |sym| match?(sym, notice) if self[sym].present? }
-    matches.compact.any? { |m| m == false }
+    fail 'Abstract Method'
   end
 
   def global?
