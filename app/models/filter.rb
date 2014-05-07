@@ -19,7 +19,7 @@ class Filter
 
   def pass?(notice)
     matches = FIELDS.map { |sym| match?(sym, notice) if self[sym].present? }
-    matches.any? { |m| m == false }
+    matches.compact.any? { |m| m == false }
   end
 
   def global?
