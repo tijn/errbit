@@ -237,5 +237,22 @@ describe App do
       expect(app.keep_notice?(notice)).to eq false
     end
   end
-end
 
+  context '#urgent_notice?' do
+    let(:app) { Fabricate(:app) }
+    let(:application_filter) { Fabricate(:empty_priority_filter, app: app) }
+    let(:global_filter) { Fabricate(:empty_priority_filter) }
+
+    it 'returns false if notice passes all filters' do
+      notice = Fabricate.build(:foobar_notice)
+      expect(app.urgent_notice?(notice)).to eq false
+    end
+
+    it 'returns true if notice fails one or more filters' do
+      notice = Fabricate.build(:foobar_notice)
+      global_filter.message = 'FooError'
+      global_filter.save!
+      expect(app.urgent_notice?(notice)).to eq true
+    end
+  end
+end
