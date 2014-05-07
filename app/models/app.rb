@@ -183,6 +183,12 @@ class App
     criteria.map { |c| c.pass? notice }.all?
   end
 
+  def urgent_notice?(notice)
+    criteria  = priority_filters.map(&:dup)
+    criteria += PriorityFilter.global
+    criteria.map { |c| c.pass? notice }.any?
+  end
+
   protected
 
     def store_cached_attributes_on_problems
