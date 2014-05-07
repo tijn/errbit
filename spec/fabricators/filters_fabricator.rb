@@ -6,7 +6,11 @@ Fabricator :filter do
   where 'test'
 end
 
-Fabricator :empty_filter, :from => :filter do
+Fabricator :exception_filter, from: :filter do
+  _type 'ExceptionFilter'
+end
+
+Fabricator :empty_filter, :from => :exception_filter do
   description 'Kill those annoying FooBar exceptions.'
   message 'some message'
   error_class ''

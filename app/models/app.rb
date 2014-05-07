@@ -30,7 +30,7 @@ class App
   embeds_one :notification_service
 
   has_many :problems, :inverse_of => :app, :dependent => :destroy
-  has_many :filters, :dependent => :destroy
+  has_many :exception_filters, :dependent => :destroy
 
   before_validation :generate_api_key, :on => :create
   before_save :normalize_github_repo
@@ -177,8 +177,8 @@ class App
   end
 
   def keep_notice?(notice)
-    criteria  = filters.map(&:dup)
-    criteria += Filter.global
+    criteria  = exception_filters.map(&:dup)
+    criteria += ExceptionFilter.global
     criteria.map { |c| c.pass? notice }.all?
   end
 

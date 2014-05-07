@@ -1,0 +1,2 @@
+class ExceptionFilter < Filter
+end

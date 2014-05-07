@@ -1,0 +1,28 @@
+- content_for :title, "Exception filter"
+
+- content_for :action_bar do
+  %span= link_to('Add a New Filter', new_exception_filter_path, class: 'add')
+  = link_to 'edit', edit_exception_filter_path(exception_filter), class: 'button'
+  = link_to 'destroy', exception_filter_path(exception_filter), method: :delete,
+    data: { confirm: t('filters.confirm_delete') }, class: 'delete button'
+
+%table.single_filter
+  %tr
+    %th= t('.description')
+    %td.main= exception_filter.description
+  %tr
+    %th= t('.message')
+    %td.main= exception_filter.message
+  %tr
+    %th= t('.error_class')
+    %td= exception_filter.error_class
+  %tr
+    %th= t('.url')
+    %td= exception_filter.url
+  %tr
+    %th= t('.where')
+    %td= exception_filter.where
+  - if exception_filter.app
+    %tr
+      %th= t('.app')
+      %td= link_to exception_filter.app_name, exception_filter.app
