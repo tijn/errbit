@@ -23,6 +23,7 @@ class Notice
   after_create :cache_attributes_on_problem, :unresolve_problem
   after_create :email_notification
   after_create :services_notification
+  after_create :set_urgence_on_problem
   before_save :sanitize
   before_destroy :decrease_counter_cache, :remove_cached_attributes_from_problem
 
@@ -133,6 +134,11 @@ class Notice
 
   def remove_cached_attributes_from_problem
     problem.remove_cached_notice_attributes(self) if err
+  end
+
+  def set_urgence_on_problem
+    problem.urgent = app.urgent_notice? self
+    problem.save!
   end
 
   def unresolve_problem
