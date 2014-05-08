@@ -14,7 +14,7 @@
         %th Resolve
     %tbody
       - problems.each do |problem|
-        %tr{:class => problem.resolved? ? 'resolved' : 'unresolved'}
+        %tr{:class => problem_line_class(problem)}
           %td.select
             = check_box_tag "problems[]", problem.id, selected_problems.member?(problem.id.to_s)
           %td.app
