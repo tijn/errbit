@@ -30,8 +30,10 @@ module ProblemsHelper
   end
 
   def problem_line_class(problem)
-    css_class = problem.resolved? ? 'resolved' : 'unresolved'
-    css_class
+    css_class = []
+    css_class << (problem.resolved? ? 'resolved' : 'unresolved')
+    css_class << (problem.urgent? ? 'urgent' : 'minor')
+    css_class.join ' '
   end
 end
 

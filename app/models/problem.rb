@@ -10,6 +10,7 @@ class Problem
   field :first_notice_at, :type => DateTime, :default => Proc.new { Time.now }
   field :last_deploy_at, :type => Time
   field :resolved, :type => Boolean, :default => false
+  field :urgent, type: Boolean, default: false
   field :resolved_at, :type => Time
   field :issue_link, :type => String
   field :issue_type, :type => String
