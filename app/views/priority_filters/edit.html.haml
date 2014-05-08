@@ -1,0 +1,10 @@
+- content_for :title, 'Edit Priority filter'
+- content_for :action_bar do
+  = link_to('cancel', priority_filter_path(priority_filter), class: 'button')
+
+= form_for priority_filter, html: { autocomplete: 'off' } do |f|
+  = priority_filter.errors.full_messages.to_sentence
+  = render 'fields', f: f
+
+  %div.buttons= f.submit 'Update priority Filter'
+

@@ -1,0 +1,8 @@
+- content_for :title, 'New Priority filter'
+- content_for :action_bar, link_to('cancel', priority_filters_path, class: 'button')
+
+= form_for priority_filter do |f|
+
+  = render 'fields', f: f
+
+  %div.buttons= f.submit 'Add Priority Filter'
