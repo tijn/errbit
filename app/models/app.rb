@@ -178,18 +178,22 @@ class App
   end
 
   def keep_notice?(notice)
-    criteria  = exception_filters.map(&:dup)
-    criteria += ExceptionFilter.global
+    criteria = fetch_filters 'exception'
     criteria.map { |c| c.pass? notice }.all?
   end
 
   def urgent_notice?(notice)
-    criteria  = priority_filters.map(&:dup)
-    criteria += PriorityFilter.global
+    criteria = fetch_filters 'priority'
     criteria.map { |c| c.pass? notice }.any?
   end
 
   protected
+
+  def fetch_filters(type)
+    criteria  = send("#{type.downcase}_filters").map(&:dup)
+    criteria += "#{type}Filter".classify.constantize.global
+    criteria
+  end
 
     def store_cached_attributes_on_problems
       problems.each(&:cache_app_attributes)
