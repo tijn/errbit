@@ -178,16 +178,16 @@ class App
   end
 
   def keep_notice?(notice)
-    fetch_filters('exception').all? { |c| c.pass? notice }
+    filter_for('exception').all? { |c| c.pass? notice }
   end
 
   def urgent_notice?(notice)
-    fetch_filters('priority').any? { |c| c.pass? notice }
+    filter_for('priority').any? { |c| c.pass? notice }
   end
 
   protected
 
-  def fetch_filters(type)
+  def filter_for(type)
     criteria  = send("#{type.downcase}_filters").map(&:dup)
     criteria += "#{type}Filter".classify.constantize.global
     criteria
