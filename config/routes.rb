@@ -9,7 +9,8 @@ Errbit::Application.routes.draw do
 
   resources :notices,   :only => [:show]
   resources :deploys,   :only => [:show]
-  resources :filters
+  resources :exception_filters
+  resources :priority_filters
   resources :users do
     member do
       delete :unlink_github

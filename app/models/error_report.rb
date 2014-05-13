@@ -40,16 +40,8 @@ class ErrorReport
   def generate_notice!
     return unless valid?
     return @notice if @notice
-    @notice = Notice.new(
-      :message => message,
-      :error_class => error_class,
-      :backtrace_id => backtrace.id,
-      :request => request,
-      :server_environment => server_environment,
-      :notifier => notifier,
-      :user_attributes => user_attributes,
-      :framework => framework
-    )
+    @notice = build_notice
+    @notice.backtrace_id = backtrace.id
     error.notices << @notice
     @notice
   end

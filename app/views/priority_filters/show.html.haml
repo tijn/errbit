@@ -1,0 +1,28 @@
+- content_for :title, 'Priority filter'
+
+- content_for :action_bar do
+  %span= link_to('Add a New Filter', new_priority_filter_path, class: 'add')
+  = link_to 'edit', edit_priority_filter_path(priority_filter), class: 'button'
+  = link_to 'destroy', priority_filter_path(priority_filter), method: :delete,
+    data: { confirm: t('filters.confirm_delete') }, class: 'delete button'
+
+%table.single_filter
+  %tr
+    %th= t('.description')
+    %td.main= priority_filter.description
+  %tr
+    %th= t('.message')
+    %td.main= priority_filter.message
+  %tr
+    %th= t('.error_class')
+    %td= priority_filter.error_class
+  %tr
+    %th= t('.url')
+    %td= priority_filter.url
+  %tr
+    %th= t('.where')
+    %td= priority_filter.where
+  - if priority_filter.app
+    %tr
+      %th= t('.app')
+      %td= link_to priority_filter.app_name, priority_filter.app

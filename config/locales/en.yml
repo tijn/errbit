@@ -26,6 +26,8 @@ en:
       apps: 'Apps'
       errors: 'Errors'
       users: 'Users'
+      filters: 'Filters'
+      priority_filters: 'Priority'
     session:
       sign_out: 'Sign out'
       edit_profile: 'Edit profile'

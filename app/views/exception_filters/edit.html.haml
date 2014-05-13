@@ -1,0 +1,10 @@
+- content_for :title, "Edit Exception Filter"
+- content_for :action_bar do
+  = link_to('cancel', exception_filter_path(exception_filter), :class => 'button')
+
+= form_for exception_filter, :html => {:autocomplete => "off"} do |f|
+  = exception_filter.errors.full_messages.to_sentence
+  = render 'fields', :f => f
+
+  %div.buttons= f.submit 'Update Exception Filter'
+

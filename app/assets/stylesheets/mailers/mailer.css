@@ -5,6 +5,10 @@ td.header {
   text-align: left;
   border-bottom: 1px solid #ccccee;
 }
+td.header.urgent {
+  background-color: #cc0033;
+  border-bottom: 1px solid black;
+}
   td.header a {
     display: block;
     height: 31px;

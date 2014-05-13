@@ -28,5 +28,12 @@ module ProblemsHelper
     url = request.ssl? ? "https://secure.gravatar.com" : "http://www.gravatar.com"
     "#{url}/avatar/#{email_hash}?#{params.to_query}"
   end
+
+  def problem_line_class(problem)
+    css_class = []
+    css_class << (problem.resolved? ? 'resolved' : 'unresolved')
+    css_class << (problem.urgent? ? 'urgent' : 'minor')
+    css_class.join ' '
+  end
 end
 

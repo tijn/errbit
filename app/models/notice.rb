@@ -21,6 +21,7 @@ class Notice
   index(:err_id => 1, :created_at => 1, :_id => 1)
 
   after_create :cache_attributes_on_problem, :unresolve_problem
+  after_create :set_urgence_on_problem
   after_create :email_notification
   after_create :services_notification
   before_save :sanitize
@@ -133,6 +134,11 @@ class Notice
 
   def remove_cached_attributes_from_problem
     problem.remove_cached_notice_attributes(self) if err
+  end
+
+  def set_urgence_on_problem
+    problem.urgent = app.urgent_notice? self
+    problem.save!
   end
 
   def unresolve_problem
