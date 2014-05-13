@@ -188,7 +188,7 @@ class App
   protected
 
   def filter_for(type)
-    criteria  = send("#{type.downcase}_filters").map(&:dup)
+    criteria  = send("#{type.downcase}_filters").to_a
     criteria += "#{type}Filter".classify.constantize.global
     criteria
   end
