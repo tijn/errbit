@@ -178,13 +178,11 @@ class App
   end
 
   def keep_notice?(notice)
-    criteria = fetch_filters 'exception'
-    criteria.map { |c| c.pass? notice }.all?
+    fetch_filters('exception').all? { |c| c.pass? notice }
   end
 
   def urgent_notice?(notice)
-    criteria = fetch_filters 'priority'
-    criteria.map { |c| c.pass? notice }.any?
+    fetch_filters('priority').any? { |c| c.pass? notice }
   end
 
   protected
