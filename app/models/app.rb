@@ -178,19 +178,21 @@ class App
   end
 
   def keep_notice?(notice)
-    filter_for('exception').all? { |c| c.pass? notice }
+    filter_for_exception.all? { |c| c.pass? notice }
   end
 
   def urgent_notice?(notice)
-    filter_for('priority').any? { |c| c.pass? notice }
+    filter_for_priority.any? { |c| c.pass? notice }
   end
 
   protected
 
-  def filter_for(type)
-    criteria  = send("#{type.downcase}_filters").to_a
-    criteria += "#{type}Filter".classify.constantize.global
-    criteria
+  def filter_for_exception
+    exception_filters.to_a + ExceptionFilter.global
+  end
+
+  def filter_for_priority
+    priority_filters.to_a + PriorityFilter.global
   end
 
     def store_cached_attributes_on_problems
