@@ -163,6 +163,10 @@ class Problem
     )
   end
 
+  def responsible
+    app.watchers.where(responsible: true).first.try(:label)
+  end
+
   private
 
     def attribute_count_descrease(name, value)

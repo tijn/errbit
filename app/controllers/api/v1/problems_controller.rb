@@ -13,11 +13,12 @@ class Api::V1::ProblemsController < ApplicationController
   end
 
   def week
+    results = []
     query = { last_notice_at: { '$gte' => 1.week.ago.utc },
               '$or' => [{ resolved_at: { '$gte' => 1.week.ago.utc } }] }
     results = fetch_with_query(query).to_a
     respond_to do |format|
-      format.any(:html, :json) { render json: Yajl.dump(results) }
+      format.any(:html, :json) { render json: results.to_json(methods: :responsible) }
       format.xml  { render xml: results }
     end
   end
