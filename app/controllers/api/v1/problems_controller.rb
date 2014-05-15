@@ -2,7 +2,12 @@ class Api::V1::ProblemsController < ApplicationController
   respond_to :json, :xml
 
   def index
-    query = query_for_start_and_end_date(params)
+    query = {}
+    if params.key?(:start_date) && params.key?(:end_date)
+      start_date = Time.parse(params[:start_date]).utc
+      end_date = Time.parse(params[:end_date]).utc
+      query = {:first_notice_at=>{"$lte"=>end_date}, "$or"=>[{:resolved_at=>nil}, {:resolved_at=>{"$gte"=>start_date}}]}
+    end
     results = benchmark('[api/v1/problems_controller] query time') do
       fetch_with_query(query).to_a
     end
@@ -27,17 +32,6 @@ class Api::V1::ProblemsController < ApplicationController
 
   def fetch_with_query(query)
     Problem.where(query).with(consistency: :strong).only(problem_fields)
-  end
-
-  def query_for_start_and_end_date(params)
-    return {} unless params.key?(:start_date) && params.key?(:end_date)
-    query = {}
-    query[:first_notice_at] = { '$lte' => Time.parse(params[:start_date]).utc }
-    query['$or'] = [
-      { resolved_at: nil },
-      { resolved_at: { '$gte' => Time.parse(params[:end_date]).utc } }
-    ]
-    query
   end
 
   def problem_fields
