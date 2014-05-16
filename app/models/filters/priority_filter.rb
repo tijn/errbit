@@ -1,5 +1,7 @@
 class PriorityFilter < Filter
   def pass?(notice)
-    matches(notice).compact.any?
+    result = matches(notice).compact.any?
+    up_count_for_match if result
+    result
   end
 end

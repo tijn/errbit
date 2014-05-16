@@ -8,6 +8,7 @@ class Filter
   field :error_class
   field :url
   field :where
+  field :count, default: 0
 
   scope :global, -> { where(:app_id.in => [nil, '']) }
 
@@ -27,6 +28,11 @@ class Filter
 
   def global?
     app.nil?
+  end
+
+  def up_count_for_match
+    self.count += 1
+    self.save!
   end
 
   private
