@@ -185,6 +185,10 @@ class App
     filter_for_priority.any? { |c| c.pass? notice }
   end
 
+  def responsible_label
+    watchers.where(responsible: true).first.try(:label)
+  end
+
   protected
 
   def filter_for_exception
