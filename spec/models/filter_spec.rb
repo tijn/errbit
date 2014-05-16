@@ -148,4 +148,28 @@ describe Filter do
       expect(filter.valid?).to eq true
     end
   end
+
+  context 'keeps count on matches' do
+    let(:exception_filter) do
+      ExceptionFilter.create description: 'test', error_class: 'FooError'
+    end
+
+    let(:priority_filter) do
+      PriorityFilter.create description: 'test', error_class: 'FooError'
+    end
+
+    it 'ups matched count on match for exception' do
+      expect(exception_filter.count).to eq 0
+      result = exception_filter.pass? notice
+      expect(result).to eq false
+      expect(exception_filter.count).to eq 1
+    end
+
+    it 'ups matched count on match for priority' do
+      expect(priority_filter.count).to eq 0
+      result = priority_filter.pass? notice
+      expect(result).to eq true
+      expect(priority_filter.count).to eq 1
+    end
+  end
 end
