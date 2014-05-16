@@ -9,7 +9,7 @@ class ProblemDestroy
   def execute
     delete_errs
     delete_comments
-    problem.delete
+    #problem.delete
   end
 
   ##
