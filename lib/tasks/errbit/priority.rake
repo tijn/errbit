@@ -2,18 +2,18 @@ namespace :errbit do
   namespace :db do
 
     desc 'Sets priority on problems.'
-    task :prioritize => :environment do
-      notices = Notice.all
-      count = notices.count
+    task prioritize: :environment do
+      problems = Problem.all
+      count = problems.count
       found = 0
 
-      puts "Running filters on #{count} notice(s)."
-      notices.each do |notice|
-        if notice.app.urgent_notice? notice
-          notice.problem.update_attribute :urgent, true
+      puts "Running filters on #{count} problem(s)."
+      problems.each do |problem|
+        if problem.app.urgent_notice? problem
+          problem.update_attribute :urgent, true
           found += 1
         else
-          notice.problem.update_attribute :urgent, false
+          problem.update_attribute :urgent, false
         end
       end
       puts "Found a total of #{found} match(es)."
