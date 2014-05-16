@@ -9,7 +9,7 @@ namespace :errbit do
       count = problems.size
       found = 0
 
-      puts "Running filters on #{count} notice(s)."
+      puts "Running filters on #{count} problem(s)."
       problems.each do |problem|
         unless problem.resolved?
           if problem.app.keep_notice? problem
