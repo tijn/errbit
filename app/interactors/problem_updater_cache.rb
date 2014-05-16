@@ -46,7 +46,8 @@ class ProblemUpdaterCache
       :where       => notice.where,
       :messages    => attribute_count(:message, messages),
       :hosts       => attribute_count(:host, hosts),
-      :user_agents => attribute_count(:user_agent_string, user_agents)
+      :user_agents => attribute_count(:user_agent_string, user_agents),
+      :url         => notice.url
     ) if notice
     problem.update_attributes!(attrs)
   end

@@ -22,6 +22,7 @@ class Problem
   field :environment
   field :error_class
   field :where
+  field :url
   field :user_agents, :type => Hash, :default => {}
   field :messages,    :type => Hash, :default => {}
   field :hosts,       :type => Hash, :default => {}
