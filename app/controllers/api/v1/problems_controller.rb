@@ -1,5 +1,8 @@
 class Api::V1::ProblemsController < ApplicationController
   respond_to :json, :xml
+  skip_before_filter :verify_authenticity_token
+  before_filter :cors_preflight_check
+  after_filter :cors_set_access_control_headers
 
   def index
     query = {}
@@ -29,6 +32,19 @@ class Api::V1::ProblemsController < ApplicationController
   end
 
   private
+
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    headers['Access-Control-Max-Age'] = '60'
+  end
+
+  def cors_preflight_check
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version'
+    headers['Access-Control-Max-Age'] = '60'
+  end
 
   def fetch_with_query(query)
     Problem.where(query).with(consistency: :strong).only(problem_fields)
