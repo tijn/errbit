@@ -1,6 +1,11 @@
 class Api::V1::ProblemsController < ApplicationController
   respond_to :json, :xml
-  skip_before_filter :verify_authenticity_token
+
+  skip_before_filter :verify_authenticity_token, only: :week
+  skip_before_filter :authenticate_user_from_token!, only: :week
+  skip_before_filter :authenticate_user!, only: :week
+  skip_before_filter :set_time_zone, only: :week
+
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
 
