@@ -12,7 +12,7 @@ namespace :errbit do
       puts "Running filters on #{count} problem(s)."
       problems.each do |problem|
         unless problem.resolved?
-          if problem.app.keep_notice? problem
+          unless problem.app.keep_notice? problem
             problem.update_attribute :resolved, true
             found += 1
           end
