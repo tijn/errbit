@@ -9,9 +9,11 @@ namespace :errbit do
 
       puts "Running filters on #{count} problem(s)."
       problems.each do |problem|
-        if problem.app.urgent_notice? problem
-          problem.update_attribute :urgent, true
-          found += 1
+        if problem.app.urgent_notice?(problem)
+          unless problem.urgent?
+            problem.update_attribute :urgent, true
+            found += 1
+          end
         else
           problem.update_attribute :urgent, false
         end
