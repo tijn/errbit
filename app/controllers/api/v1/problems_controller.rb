@@ -27,9 +27,10 @@ class Api::V1::ProblemsController < ApplicationController
 
   def week
     results = []
-    query = { last_notice_at: { '$gte' => 1.week.ago.utc },
-              '$or' => [{ resolved_at: { '$gte' => 1.week.ago.utc } }] }
-    results = fetch_with_query(query).to_a
+    noticed = { last_notice_at: { '$gte' => 1.week.ago.utc } }
+    resolved = { resolved_at: { '$gte' => 1.week.ago.utc } }
+    results = Problem.any_of(noticed, resolved).with(consistency: :strong)
+    results = results.only(problem_fields).to_a
     respond_to do |format|
       format.any(:html, :json) { render json: results.to_json(methods: :responsible) }
       format.xml  { render xml: results }
