@@ -22,8 +22,9 @@
         - if @assignee
           %tr
             %td.responsibility
-              This is the responsibility of
-              %strong= "#{@assignee.label}."
+              %strong= @assignee.label
+               is responsible to resolve this.
+              = "Other watchers are #{@watchers.to_sentence}" unless @watchers.empty?
         %tr
           %td.content(valign="top")
             %div

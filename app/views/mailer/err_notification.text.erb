@@ -5,7 +5,8 @@ This err has occurred <%= pluralize @notice.problem.notices_count, 'time' %>. Yo
   <%= app_problem_url(@app, @notice.problem) %>
 
 <% if @assignee %>
-RESPONSIBLE PERSON: <%= @assignee.label %>
+<%= @assignee.label %> is responsible to resolve this.
+<%= "Other watchers are #{@watchers.to_sentence}." unless @watchers.empty? %>
 <% end %>
 
 ERROR MESSAGE:
