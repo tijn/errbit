@@ -12,7 +12,7 @@ class Mailer < ActionMailer::Base
     @notice   = notice
     @app      = notice.app
     @assignee = @app.watchers.where(responsible: true).first
-    @watchers = @app.watchers.to_a.map(&:label) - [@assignee.label]
+    @watchers = @app.watchers.to_a.map(&:label) - [@assignee.try(:label)]
 
     count = @notice.similar_count
     count = count > 1 ? "(#{count}) " : ""
