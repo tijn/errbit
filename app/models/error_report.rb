@@ -19,8 +19,10 @@ class ErrorReport
               :notifier, :user_attributes, :framework, :notice
 
   def initialize(xml_or_attributes)
-    @attributes = (xml_or_attributes.is_a?(String) ? Hoptoad.parse_xml!(xml_or_attributes) : xml_or_attributes).with_indifferent_access
-    @attributes.each{|k, v| instance_variable_set(:"@#{k}", v) }
+    @attributes = xml_or_attributes
+    @attributes = Hoptoad.parse_xml!(@attributes) if @attributes.is_a? String
+    @attributes = @attributes.with_indifferent_access
+    @attributes.each { |k, v| instance_variable_set(:"@#{k}", v) }
   end
 
   def rails_env
